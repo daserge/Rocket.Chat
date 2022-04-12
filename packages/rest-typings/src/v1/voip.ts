@@ -74,6 +74,6 @@ export type VoipEndpoints = {
 		}) => PaginatedResult<{ rooms: IVoipRoom[] }>;
 	};
 	'voip/room.close': {
-		POST: (params: { rid: string; token: string; comment: string; tags?: string[] }) => { rid: string };
+		POST: (params: { rid: string; token: string; options: { comment?: string; tags?: string[] } }) => { rid: string };
 	};
 };
