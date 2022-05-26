@@ -89,10 +89,11 @@ API.v1.addRoute(
 				token: String,
 				agentId: Match.Maybe(String),
 				rid: Match.Maybe(String),
+				direction: Match.Maybe(String),
 			};
 			check(this.queryParams, defaultCheckParams);
 
-			const { token, rid, agentId } = this.queryParams;
+			const { token, rid, agentId, direction } = this.queryParams;
 			const guest = await LivechatVisitors.getVisitorByToken(token, {});
 			if (!guest) {
 				return API.v1.failure('invalid-token');
@@ -115,7 +116,11 @@ API.v1.addRoute(
 				const agent = { agentId: _id, username };
 				const rid = Random.id();
 
-				return API.v1.success(await LivechatVoip.getNewRoom(guest, agent, rid, { projection: API.v1.defaultFieldsToExclude }));
+				if (direction !== 'inbound' && direction !== 'outbound') {
+					return API.v1.failure('invalid-direction');
+				}
+
+				return API.v1.success(await LivechatVoip.getNewRoom(guest, agent, rid, direction, { projection: API.v1.defaultFieldsToExclude }));
 			}
 
 			const room = await VoipRoom.findOneByIdAndVisitorToken(rid, token, { projection: API.v1.defaultFieldsToExclude });
