@@ -73,6 +73,7 @@ export type VoipEndpoints = {
 			tags?: string[];
 			queue?: string;
 			visitorId?: string;
+			direction?: IVoipRoom['direction'];
 		}) => PaginatedResult<{ rooms: IVoipRoom[] }>;
 	};
 	'voip/room.close': {
