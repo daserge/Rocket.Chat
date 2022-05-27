@@ -89,7 +89,7 @@ API.v1.addRoute(
 				token: String,
 				agentId: Match.Maybe(String),
 				rid: Match.Maybe(String),
-				direction: Match.Maybe(String),
+				direction: Match.Maybe(Match.Where((value: string) => ['inbound', 'outbound'].includes(value))),
 			};
 			check(this.queryParams, defaultCheckParams);
 
@@ -116,8 +116,8 @@ API.v1.addRoute(
 				const agent = { agentId: _id, username };
 				const rid = Random.id();
 
-				if (direction !== 'inbound' && direction !== 'outbound') {
-					return API.v1.failure('invalid-direction');
+				if (!direction) {
+					return API.v1.failure('no-direction-provided-for-new-room');
 				}
 
 				return API.v1.success(await LivechatVoip.getNewRoom(guest, agent, rid, direction, { projection: API.v1.defaultFieldsToExclude }));
