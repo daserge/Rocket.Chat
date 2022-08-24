@@ -2,18 +2,18 @@ import { HTML } from 'meteor/htmljs';
 
 import { createTemplateForComponent } from './lib/portals/createTemplateForComponent';
 
-createTemplateForComponent('MessageActions', () => import('./components/Message/MessageActions'));
+createTemplateForComponent('MessageActions', () => import('./components/message/MessageActions'));
 
-createTemplateForComponent('reactAttachments', () => import('./components/Message/Attachments'));
+createTemplateForComponent('reactAttachments', () => import('./components/message/Attachments'));
 
-createTemplateForComponent('ThreadMetric', () => import('./components/Message/Metrics/Thread'), {
+createTemplateForComponent('ThreadMetric', () => import('./components/message/Metrics/Thread'), {
 	renderContainerView: () =>
 		HTML.DIV({
 			style: 'min-height: 36px;',
 		}),
 });
 
-createTemplateForComponent('DiscussionMetric', () => import('./components/Message/Metrics/Discussion'), {
+createTemplateForComponent('DiscussionMetric', () => import('./components/message/Metrics/Discussion'), {
 	renderContainerView: () =>
 		HTML.DIV({
 			style: 'min-height: 36px;',
@@ -21,10 +21,8 @@ createTemplateForComponent('DiscussionMetric', () => import('./components/Messag
 });
 
 createTemplateForComponent('MessageList', () => import('./views/room/MessageList/MessageList'));
-/** @deprecated */
-createTemplateForComponent('MessageBody', () => import('./components/Message/MessageBodyRender'));
 
-createTemplateForComponent('BroadCastMetric', () => import('./components/Message/Metrics/Broadcast'));
+createTemplateForComponent('BroadCastMetric', () => import('./components/message/Metrics/Broadcast'));
 
 createTemplateForComponent(
 	'Checkbox',
@@ -124,8 +122,6 @@ createTemplateForComponent('PruneMessages', () => import('./views/room/contextua
 	renderContainerView: () => HTML.DIV({ class: 'contextual-bar' }),
 });
 
-createTemplateForComponent('Burger', () => import('./components/BurgerMenu'));
-
 createTemplateForComponent('loginLayoutHeader', () => import('./views/login/LoginLayout/Header'));
 
 createTemplateForComponent('loginLayoutFooter', () => import('./views/login/LoginLayout/Footer'));
@@ -158,4 +154,8 @@ createTemplateForComponent('roomNotFound', () => import('./views/room/Room/RoomN
 
 createTemplateForComponent('ComposerNotAvailablePhoneCalls', () => import('./components/voip/composer/NotAvailableOnCall'), {
 	renderContainerView: () => HTML.DIV({ style: 'display: flex; height: 100%; width: 100%' }),
+});
+
+createTemplateForComponent('loggedOutBanner', () => import('../ee/client/components/deviceManagement/LoggedOutBanner'), {
+	renderContainerView: () => HTML.DIV({ style: 'max-width: 520px; margin: 0 auto;' }),
 });
